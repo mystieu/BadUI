@@ -41,3 +41,20 @@ function generateAll() {
 document.addEventListener('DOMContentLoaded', () => {
     generateAll();
 });
+
+
+document.addEventListener("DOMContentLoaded", function() {
+    const rngNumbers = document.querySelectorAll('.rng-numbers');
+  
+    rngNumbers.forEach(element => {
+      element.addEventListener('mouseover', function() {
+        document.body.style.transition = 'cursor 0.5s ease-in-out';
+        document.body.style.cursor = 'url(assets/open_flashlight.png), auto';
+      });
+  
+      element.addEventListener('mouseout', function() {
+        document.body.style.transition = 'cursor 0.5s ease-in-out';
+        document.body.style.cursor = 'url(assets/closed_flashlight.png), auto';
+      });
+    });
+  });

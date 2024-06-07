@@ -12,6 +12,7 @@ body, html {
   display: flex;
   justify-content: center;
   align-items: center;
+  cursor: url('/assets/closed_flashlight.png'), auto;
 }
 
 .container {
@@ -75,7 +76,7 @@ body, html {
 }
 
 .rng-numbers:hover{
-  font-size: 200%;
-  color: #79a1a1;
-
+  font-size: 180%;
+  color: #437171;
+  cursor: url('assets/open_flashlight.png'), auto;
 }
