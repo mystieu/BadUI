@@ -1,8 +1,9 @@
 const container = document.getElementById('rng-container');
+const core = document.getElementsByTagName("body")[0];
 
 function getRandomPosition(w, h) {
-    const x = Math.random() * (w-50); 
-    const y = Math.random() * (h-50);
+    const x = Math.random() * (w); 
+    const y = Math.random() * (h);
     return { x, y };
 }
 
@@ -40,21 +41,11 @@ function generateAll() {
 
 document.addEventListener('DOMContentLoaded', () => {
     generateAll();
-});
-
-
-document.addEventListener("DOMContentLoaded", function() {
-    const rngNumbers = document.querySelectorAll('.rng-numbers');
-  
-    rngNumbers.forEach(element => {
-      element.addEventListener('mouseover', function() {
-        document.body.style.transition = 'cursor 0.5s ease-in-out';
-        document.body.style.cursor = 'url(assets/open_flashlight.png), auto';
-      });
-  
-      element.addEventListener('mouseout', function() {
-        document.body.style.transition = 'cursor 0.5s ease-in-out';
-        document.body.style.cursor = 'url(assets/closed_flashlight.png), auto';
-      });
+    core.style.cursor = "url('/assets/closed_flashlight.png'), auto";
+    
+        // Flashlight effect
+    document.addEventListener('mousemove', (e) => {
+        document.body.style.setProperty('--mouse-x', `${e.pageX}px`);
+        document.body.style.setProperty('--mouse-y', `${e.pageY}px`);
     });
-  });
+});

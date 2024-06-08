@@ -61,9 +61,8 @@ body, html {
 
 .rng-container {
   position: absolute;
-  border: 1px #ffffff solid;
-  height: 90%;
-  width: 90%;
+  height: 60%;
+  width: 70%;
 }
 
 .rng-numbers {
@@ -77,6 +76,19 @@ body, html {
 
 .rng-numbers:hover{
   font-size: 180%;
-  color: #437171;
+  color: #655943;
   cursor: url('assets/open_flashlight.png'), auto;
+}
+body::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 500px;
+  height: 500px;
+  pointer-events: none;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.8) 0%, rgba(255, 255, 255, 0.5) 30%, rgba(0, 0, 0, 0.75) 60%, rgba(0, 0, 0, 0.95) 80%, rgba(0, 0, 0, 1) 100%);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  mix-blend-mode: screen;
 }
