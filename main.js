@@ -104,11 +104,32 @@ function displayErrorBox() {
     });
 }
 
+function displaySubmittedBox() {
+    const submitMessage = document.createElement('div');
+    submitMessage.classList.add('message-box', 'message-box-submit', 'fade-in');
+    submitMessage.innerHTML = `<span class="message-text">Birthdate Successfully Submitted</span>`;
+    document.body.appendChild(submitMessage);
+
+    setTimeout(() => {
+        submitMessage.classList.remove('fade-in');
+        submitMessage.classList.add('fade-out');
+    }, 2000);
+
+    submitMessage.addEventListener('animationend', () => {
+        submitMessage.remove();
+    });
+}
+
 function resetValues() {
     elements.forEach((element, i) => {
         element.innerHTML = defaultValues[i];
     });
     index = 0;
+}
+
+function deletePrev() {
+    elements[index-1].innerHTML = defaultValues[index-1];
+    index --;
 }
 
 function insertValue(number) {
@@ -129,6 +150,7 @@ function insertValue(number) {
         }
         else {
             index++;
+            console.log(index);
         }
     }
 }
@@ -139,4 +161,20 @@ reset_button.addEventListener('click', function() {
     resetValues();
     removeAll(container);
     generateAll();
+});
+
+const delete_button = document.getElementById("delete");
+
+delete_button.addEventListener('click', function() {
+    if(index >= 0) {
+        deletePrev();
+    }
+});
+
+const submit_button = document.getElementById("submit");
+
+submit_button.addEventListener('click', function() {
+    if(index == 8) {
+        displaySubmittedBox();
+    }
 });
