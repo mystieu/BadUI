@@ -10,23 +10,32 @@
     <body style="font-family: 'Lucida', monospace;"></body>
 </head>
 <body>
+  <div class="message-box message-box-error" style="display: none;">
+    <span class="message-text">Error: Invalid Value</span>
+  </div>
+  
   <div class="container">
       <div class="birthdate">
-        <div id="day">DD</div>
+        <div id="d1">D</div>
+        <div id="d2">D</div>
         <div id="sep">/</div>
-        <div id="month">MM</div>
+        <div id="m1">M</div>
+        <div id="m2">M</div>
         <div id="sep">/</div>
-        <div id="year">YYYY</div>
+        <div id="y1">Y</div>
+        <div id="y2">Y</div>
+        <div id="y3">Y</div>
+        <div id="y4">Y</div>
       </div>
       <div class="footer">
-          <div class="footer-left">BAD UI</div>
+          <div class="footer-left">BDAY</div>
           <div class="footer-right">2024</div>
       </div>
-      <div class="bottom-text">PROMPT => BIRTHDATE</div>
+      <div id="reset">reset</div>
+      <div id="submit">submit</div>
   </div>
-  <div class="rng-container" id="rng-container">
-      
-  </div>
+  <div class="rng-container" id="rng-container"></div>
+  <div class="cursor" id="cursor"></div>
   <script type="module" src="main.js"></script>
 </body>
 </html>

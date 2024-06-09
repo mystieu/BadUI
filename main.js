@@ -1,29 +1,25 @@
 const container = document.getElementById('rng-container');
 const core = document.getElementsByTagName("body")[0];
+const cursor = document.querySelector('.cursor');
 
 function getRandomPosition(w, h) {
-    const x = Math.random() * (w); 
-    const y = Math.random() * (h);
+    const x = Math.random() * w;
+    const y = Math.random() * h;
     return { x, y };
 }
 
 function createRandomNumber(container, number) {
-    var container_info = container.getBoundingClientRect();
+    const container_info = container.getBoundingClientRect();
 
     const span = document.createElement('span');
     span.className = 'rng-numbers';
+    span.id = 'rng-number';
     span.innerText = number;
 
     const { x, y } = getRandomPosition(container_info.width, container_info.height);
     span.style.position = "absolute";
     span.style.left = `${x}px`;
     span.style.top = `${y}px`;
-
-    span.addEventListener('click', () => {
-        console.log(`${number}`);
-        removeAll(container);
-        generateAll();
-    });
 
     container.appendChild(span);
 }
@@ -39,13 +35,109 @@ function generateAll() {
     }
 }
 
-document.addEventListener('DOMContentLoaded', () => {
-    generateAll();
-    core.style.cursor = "url('/assets/closed_flashlight.png'), auto";
-    
-        // Flashlight effect
-    document.addEventListener('mousemove', (e) => {
-        document.body.style.setProperty('--mouse-x', `${e.pageX}px`);
-        document.body.style.setProperty('--mouse-y', `${e.pageY}px`);
+function touching(elem1, elem2) {
+    const rect1 = elem1.getBoundingClientRect();
+    const rect2 = elem2.getBoundingClientRect();
+
+    return !(rect1.right < rect2.left || rect1.left > rect2.right || rect1.bottom < rect2.top || rect1.top > rect2.bottom);
+}
+
+removeAll(container);
+generateAll();
+
+document.addEventListener('mousemove', e => {
+    cursor.setAttribute("style", `top: ${e.pageY - 70}px; left: ${e.pageX - 70}px;`);
+
+    const numbers = container.querySelectorAll('.rng-numbers');
+    let cursorTouchingNumber = false;
+
+    numbers.forEach(number => {
+        if (touching(cursor, number)) {
+            cursorTouchingNumber = true;
+        }
     });
+
+    if (cursorTouchingNumber) {
+        core.style.cursor = "url('/assets/open_flashlight.png'), auto";
+        cursor.classList.add("hovering");
+    } else {
+        core.style.cursor = "url('/assets/closed_flashlight.png'), auto";
+        cursor.classList.remove("hovering");
+    }
+});
+
+document.addEventListener('click', () => {
+    cursor.classList.add("clicked");
+    setTimeout(() => {
+        cursor.classList.remove("clicked");
+    }, 500);
+
+    const numbers = container.querySelectorAll('.rng-numbers');
+    numbers.forEach(number => {
+        if (touching(cursor, number)) {
+            // console.log(number.innerText);
+            insertValue(number.innerText);
+            removeAll(container);
+            generateAll();
+        }
+    });
+});
+
+const defaultValues = ["D", "D", "M", "M", "Y", "Y", "Y", "Y"];
+const ids = ["d1", "d2", "m1", "m2", "y1", "y2", "y3", "y4"];
+const elements = ids.map(id => document.getElementById(id));
+let index = 0;
+
+function displayErrorBox() {
+    const errorMessage = document.createElement('div');
+    errorMessage.classList.add('message-box', 'message-box-error', 'fade-in');
+    errorMessage.innerHTML = `<span class="message-text">Error: Invalid Value</span>`;
+    document.body.appendChild(errorMessage);
+
+    setTimeout(() => {
+        errorMessage.classList.remove('fade-in');
+        errorMessage.classList.add('fade-out');
+    }, 2000);
+
+    errorMessage.addEventListener('animationend', () => {
+        errorMessage.remove();
+    });
+}
+
+function resetValues() {
+    elements.forEach((element, i) => {
+        element.innerHTML = defaultValues[i];
+    });
+    index = 0;
+}
+
+function insertValue(number) {
+    if (index < elements.length) {
+        elements[index].innerHTML = number;
+        if (
+            elements[0].innerHTML > 3 ||
+            (elements[0].innerHTML === 3 && elements[1].innerHTML > 1) ||
+            elements[2].innerHTML > 1 ||
+            (elements[2].innerHTML === 1 && elements[3].innerHTML > 2) ||
+            elements[4].innerHTML > 2 ||
+            (elements[4].innerHTML === 2 && elements[5].innerHTML > 0) ||
+            (elements[5].innerHTML === 0 && elements[6].innerHTML > 2) ||
+            (elements[6].innerHTML === 2 && elements[7].innerHTML > 4)
+        ) {
+            displayErrorBox();
+            resetValues();
+        }
+        else {
+            index++;
+        }
+
+    }
+}
+
+const reset_button = document.getElementById("reset");
+
+reset_button.addEventListener('click', function() {
+    resetValues();
+    removeAll(container);
+    generateAll();
 });
