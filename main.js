@@ -130,7 +130,6 @@ function insertValue(number) {
         else {
             index++;
         }
-
     }
 }
 
