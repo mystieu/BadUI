@@ -33,6 +33,9 @@ function generateAll() {
     for (let i = 0; i <= 9; i++) {
         createRandomNumber(container, i);
     }
+    for (let i = 0; i <= 9; i++) {
+        createRandomNumber(container, i);
+    }
 }
 
 function touching(elem1, elem2) {
@@ -46,7 +49,7 @@ removeAll(container);
 generateAll();
 
 document.addEventListener('mousemove', e => {
-    cursor.setAttribute("style", `top: ${e.pageY - 70}px; left: ${e.pageX - 70}px;`);
+    cursor.setAttribute("style", `top: ${e.pageY - 95}px; left: ${e.pageX - 95}px;`);
 
     const numbers = container.querySelectorAll('.rng-numbers');
     let cursorTouchingNumber = false;
