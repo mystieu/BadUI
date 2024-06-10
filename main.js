@@ -33,9 +33,6 @@ function generateAll() {
     for (let i = 0; i <= 9; i++) {
         createRandomNumber(container, i);
     }
-    for (let i = 0; i <= 9; i++) {
-        createRandomNumber(container, i);
-    }
 }
 
 function touching(elem1, elem2) {
@@ -123,6 +120,22 @@ function displaySubmittedBox() {
     });
 }
 
+function displayInvalidSubmission() {
+    const invalidMessage = document.createElement('div');
+    invalidMessage.classList.add('message-box', 'message-box-invalid', 'fade-in');
+    invalidMessage.innerHTML = `<span class="message-text">Error: Invalid Birthdate</span>`;
+    document.body.appendChild(invalidMessage);
+
+    setTimeout(() => {
+        invalidMessage.classList.remove('fade-in');
+        invalidMessage.classList.add('fade-out');
+    }, 2000);
+
+    invalidMessage.addEventListener('animationend', () => {
+        invalidMessage.remove();
+    });
+}
+
 function resetValues() {
     elements.forEach((element, i) => {
         element.innerHTML = defaultValues[i];
@@ -179,5 +192,28 @@ const submit_button = document.getElementById("submit");
 submit_button.addEventListener('click', function() {
     if(index == 8) {
         displaySubmittedBox();
+    } else {
+        displayInvalidSubmission();
     }
 });
+
+function toggleBackground() {
+    const interval = Math.floor(Math.random() * 3000) + 3000;
+    const times = Math.floor(Math.random() * 2) + 1;
+    let i = 0;
+    
+    function flashBackground() {
+        document.body.style.backgroundColor = "#030303";
+        setTimeout(function() {
+            document.body.style.backgroundColor = "#000000";
+        }, 100);
+    }
+    
+    for (i = 0; i < times; i++) {
+        setTimeout(flashBackground, i * 200);
+
+    setTimeout(toggleBackground, interval);
+    }
+}
+
+toggleBackground();
