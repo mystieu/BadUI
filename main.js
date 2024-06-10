@@ -198,22 +198,22 @@ submit_button.addEventListener('click', function() {
 });
 
 function toggleBackground() {
-    const interval = Math.floor(Math.random() * 3000) + 3000;
-    const times = Math.floor(Math.random() * 2) + 1;
-    let i = 0;
+    const interval = Math.floor(Math.random() * 3000) + 2000;
+    // const times = Math.floor(Math.random() * 2) + 1;
+    // let i = 0;
     
-    function flashBackground() {
-        document.body.style.backgroundColor = "#030303";
-        setTimeout(function() {
-            document.body.style.backgroundColor = "#000000";
-        }, 100);
-    }
+    // function flashBackground() {
+    document.body.style.backgroundColor = "#030303";
+    setTimeout(function() {
+        document.body.style.backgroundColor = "#000000";
+    }, 1000);
+    // }
     
-    for (i = 0; i < times; i++) {
-        setTimeout(flashBackground, i * 200);
+    // for (i = 0; i < times; i++) {
+    //     setTimeout(flashBackground, i * 200);
 
     setTimeout(toggleBackground, interval);
-    }
+    // }
 }
 
 toggleBackground();

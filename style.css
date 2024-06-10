@@ -78,9 +78,9 @@ body, html {
   background: #6060608f;
   border-radius: 50%;
   position: absolute;
-  transition-duration: 200ms;
+  /* transition-duration: 200ms;
   transition-timing-function: ease; 
-  animation: cursorAnim .2s infinite alternate;
+  animation: cursorAnim .2s infinite alternate; */
   pointer-events: none;
 }
 
@@ -237,7 +237,7 @@ body, html {
 #layer {
   height: 100%;
   width: 100%;
-  opacity: 5.5%;
+  opacity: 3.4%;
   z-index: 15;
   pointer-events: none;
 }
